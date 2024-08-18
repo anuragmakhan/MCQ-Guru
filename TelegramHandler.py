@@ -13,6 +13,7 @@ import Type
 import queue
 import db_setup
 from telebot.types import PollAnswer
+import Timer
 
 import AppLogger as LOG
 #import SqlLite_Db_Connector as SQL
@@ -32,6 +33,7 @@ class TelegramHandler:
         self.thread = ThreadClass.ThreadClass(self.thread_id, self.name)
         #self.Client = client.camp_client()
         #self._start_thread(self._backend_response, "client_request_handler")
+        self.Timer = Timer.TimerManager()
 
         @self.bot.callback_query_handler(func=lambda call: True)
         async def callback_handler(call):
@@ -40,6 +42,7 @@ class TelegramHandler:
         @self.bot.message_handler(func=lambda message: True)
         async def echo_message(message):
             if(message.text == "ADMIN_REQUEST_TRIGGER_QUIZ"):
+                await self.triggerQuiz()
                 await self.list_groups()
                 print("ALL GROUP QUIZ SENT")
             chat_id = message.chat.id
@@ -67,7 +70,7 @@ class TelegramHandler:
                 LOG.INF("NEW_USER_REGISTERED: " + str(user_id))
             LOG.INF("CHAT_LOG USER_ID: " + str(user_id) + " Query: " + message.text)
             #LOG.INF("CHAT ID " + str(message.chat.id))
-            self.write_to_common_queue(message,Type.Action.MOVIE_SEARCH)
+            self.write_to_common_queue(message.text,user_id,Type.Action.MOVIE_SEARCH)
 
         # Update listener to handle poll answers
         @self.bot.poll_answer_handler()
@@ -81,8 +84,9 @@ class TelegramHandler:
 
             #print(f"User {user_id} selected option {selected_option} in poll {poll_id}")
 
-    async def list_groups(self):
+    async def triggerQuiz(self):
         groups = db_setup.get_all_groups()
+        question = db_setup.get_random_question()
         if groups:
             response = "Registered Groups:\n"
             for group in groups:
@@ -90,7 +94,7 @@ class TelegramHandler:
                 response += f"ID: {group_id}, Name: {group_name}, Type: {group_type}\n"
                 print(group)
                 
-                question = db_setup.get_random_question()
+                self.Timer.start_timer("START_QUIZ_TIMER",group_id,Type.Action.START_QUIZ_TIMER)
                 await self.Groupquiz(group_id,question)
         
     def QueueHandler(self):
@@ -123,9 +127,9 @@ class TelegramHandler:
             
 
             LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} in poll {question_text}")
-            timer_duration = 10
+            
             # Wait for the specified timer duration
-            await asyncio.sleep(timer_duration)
+            await asyncio.sleep(Type.QUIZ_QUESTION_TIMER)
             LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} TIMER_EXPIRED")
 
             # Delete the poll message after the timer expires
@@ -136,11 +140,11 @@ class TelegramHandler:
             #await self.bot.send_message(chat_id=groupId, text="Time's up! The quiz has ended.")
                 # Store the poll message ID to track responses
         
-    def write_to_common_queue(self,message,action):
+    def write_to_common_queue(self,message,UserId,action):
         msg = Type.msg()
         msg.action = action
-        msg.message = message.text
-        msg.userId = str(message.from_user.id)
+        msg.message = message
+        msg.userId = str(UserId)
         
         interMsg = Type.InterThreadMsg()
         

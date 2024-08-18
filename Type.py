@@ -1,9 +1,12 @@
 from dataclasses import dataclass
 
 
+QUIZ_QUESTION_TIMER = 30*60 #seconds, 30 min 
+
 class Action:
     MOVIE_SEARCH = 1
     RESPONSE_TO_USER =2
+    START_QUIZ_TIMER = 3
 
 class Modules:
     TELEGRAM = 1
