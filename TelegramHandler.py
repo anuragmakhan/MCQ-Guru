@@ -22,7 +22,8 @@ import ThreadClass
 
 class TelegramHandler:
     def __init__(self,Que):
-        self.bot = AsyncTeleBot(config.TELEGRAM_BOT_TOKEN)
+        #self.bot = AsyncTeleBot(config.TELEGRAM_BOT_TOKEN)
+        self.bot = AsyncTeleBot(config.TEST_BOT_TOKEN)
         #self.db = SQL.DbConnector()
         self.msg_token_id = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         self.commonQueue = Que
@@ -116,9 +117,23 @@ class TelegramHandler:
                 question=question_text,
                     options=options,
                     is_anonymous=False,
-                    correct_option_id=correct_option# Set to False if you want to know who voted what
+                    type="quiz",
+                    correct_option_id=1# Set to False if you want to know who voted what
             )
+            
+
             LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} in poll {question_text}")
+            timer_duration = 10
+            # Wait for the specified timer duration
+            await asyncio.sleep(timer_duration)
+            LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} TIMER_EXPIRED")
+
+            # Delete the poll message after the timer expires
+            await self.bot.delete_message(chat_id=groupId, message_id=poll_message.message_id)
+            LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} DELETED")
+
+            # Optionally, you can send a message indicating that the quiz time has expired
+            #await self.bot.send_message(chat_id=groupId, text="Time's up! The quiz has ended.")
                 # Store the poll message ID to track responses
         
     def write_to_common_queue(self,message,action):
