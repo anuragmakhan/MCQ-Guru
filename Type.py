@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 
 
-QUIZ_QUESTION_TIMER = 30*60 #seconds, 30 min 
+QUIZ_QUESTION_TIMER = 1*60 #seconds, 30 min 
+QUIZ_TYPE1_TRIGGER_TIMER = 1.5*60
 
 class Action:
     MOVIE_SEARCH = 1

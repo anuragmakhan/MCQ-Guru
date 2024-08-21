@@ -94,7 +94,7 @@ class TelegramHandler:
                 response += f"ID: {group_id}, Name: {group_name}, Type: {group_type}\n"
                 print(group)
                 
-                self.Timer.start_timer("START_QUIZ_TIMER",group_id,Type.Action.START_QUIZ_TIMER)
+                self.Timer.start_timer(Type.QUIZ_TYPE1_TRIGGER_TIMER,self.triggerQuiz)
                 await self.Groupquiz(group_id,question)
         
     def QueueHandler(self):
