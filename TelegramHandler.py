@@ -148,7 +148,7 @@ class TelegramHandler:
                         options=options,
                         is_anonymous=False,
                         type="quiz"
-                        #correct_option_id=1# Set to False if you want to know who voted what
+                        correct_option_id=1# Set to False if you want to know who voted what
                 )
                 LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} in poll {question_text}")
                 timer_id = self.Timer.start_timer(Type.QUIZ_QUESTION_TIMER_VAL,Type.TimerEvent.QUIZ_QUESTION_TIMER,self.thread)
