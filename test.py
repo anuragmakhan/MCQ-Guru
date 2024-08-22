@@ -1,3 +1,9 @@
 import Backend
+import queue
+import TelegramHandler as T
 
-Bk = Backend.Backend()
+InterThreadQueue = queue.Queue()
+
+
+TelegramObj = T.TelegramHandler(InterThreadQueue)
+TelegramObj.run()

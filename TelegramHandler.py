@@ -24,6 +24,8 @@ import ThreadClass
 class TelegramHandler:
     def __init__(self,Que):
         #self.bot = AsyncTeleBot(config.TELEGRAM_BOT_TOKEN)
+        
+        self.Senderbot = telebot.TeleBot(config.TEST_BOT_TOKEN)
         self.bot = AsyncTeleBot(config.TEST_BOT_TOKEN)
         #self.db = SQL.DbConnector()
         self.msg_token_id = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -34,6 +36,8 @@ class TelegramHandler:
         #self.Client = client.camp_client()
         #self._start_thread(self._backend_response, "client_request_handler")
         self.Timer = Timer.TimerManager()
+        self.QuestionTimerMap = dict()
+        self.triggerQuiz()
 
         @self.bot.callback_query_handler(func=lambda call: True)
         async def callback_handler(call):
@@ -41,10 +45,7 @@ class TelegramHandler:
 
         @self.bot.message_handler(func=lambda message: True)
         async def echo_message(message):
-            if(message.text == "ADMIN_REQUEST_TRIGGER_QUIZ"):
-                await self.triggerQuiz()
-                await self.list_groups()
-                print("ALL GROUP QUIZ SENT")
+            #print("ALL OK")
             chat_id = message.chat.id
             chat_type = message.chat.type
             if chat_type == 'group' or chat_type == 'supergroup':
@@ -84,7 +85,8 @@ class TelegramHandler:
 
             #print(f"User {user_id} selected option {selected_option} in poll {poll_id}")
 
-    async def triggerQuiz(self):
+    def triggerQuiz(self):
+        self.Timer.start_timer(Type.QUIZ_TRIGGER_TIMER_VAL,Type.TimerEvent.QUIZ_TRIGGER_TIMER, self.thread)
         groups = db_setup.get_all_groups()
         question = db_setup.get_random_question()
         if groups:
@@ -94,47 +96,74 @@ class TelegramHandler:
                 response += f"ID: {group_id}, Name: {group_name}, Type: {group_type}\n"
                 print(group)
                 
-                self.Timer.start_timer(Type.QUIZ_TYPE1_TRIGGER_TIMER,self.triggerQuiz)
-                await self.Groupquiz(group_id,question)
+                
+                self.Groupquiz(group_id,question)
+        
+    async def timer_expiry(self, timer_id,event):
+        LOG.INF(f"TIMER_EXPIRED: TIMER_ID : {timer_id} EVENT {event}")
+        if(event == Type.TimerEvent.QUIZ_QUESTION_TIMER):
+            if(self.QuestionTimerMap[timer_id]):
+                val =self.QuestionTimerMap[timer_id]
+                del self.QuestionTimerMap[timer_id]
+                #.write_to_common_queue("Quiz Time's Up!",self.QuestionTimerMap[timer_id],
+                await self.bot.delete_message(chat_id=val[0], message_id=val[1])
+                LOG.INF(f"GROUP_ID {val[0]} QUIZ_ID {val[1]} DELETED")
         
     def QueueHandler(self):
         LOG.INF("THREAD ID: " + str(self.thread_id) + " NAME: " + self.name + " STARTED")
         #print(f"Thread {self.thread_id} ({self.name}) started")
+        
         while True:
-            task = self.thread.get_task()
+            msg = self.thread.get_task()
             print("SENDING RESPONSE")
-            self.sendResponse(task.msg)
+            LOG.INF(f"QUEUE_HANDLER_RECEIVED_A_MESSAGE: TIMER_ID : {msg.timerId} EVENT {msg.event}")
+            if(msg.event == Type.TimerEvent.QUIZ_TRIGGER_TIMER):
+                self.triggerQuiz()
+            if (msg.event == Type.TimerEvent.QUIZ_QUESTION_TIMER):
+                if(self.QuestionTimerMap[msg.timerId]):
+                    val =self.QuestionTimerMap[msg.timerId]
+                    #print(vl)
+                    del self.QuestionTimerMap[msg.timerId]
+                    #.write_to_common_queue("Quiz Time's Up!",self.QuestionTimerMap[timer_id],
+                    self.Senderbot.delete_message(chat_id=val[0], message_id=val[1])
+                    LOG.INF(f"GROUP_ID {val[0]} QUIZ_ID {val[1]} DELETED")
+                
+            #self.sendResponse(task.msg)
         print(f"Thread {self.thread_id} ({self.name}) exiting")
     
     def sendResponse(self,message):
         bot = telebot.TeleBot(config.TELEGRAM_BOT_TOKEN)
         bot.send_message(message.userId, text=message.message)
         
-    async def Groupquiz(self,groupId,question):
+    def Groupquiz(self,groupId,question):
         if question:
             question_text = question[1]
             options = [question[2], question[3], question[4], question[5]]
             correct_option = question[6]
-                
-            poll_message = await self.bot.send_poll(
-                chat_id=groupId,
-                question=question_text,
-                    options=options,
-                    is_anonymous=False,
-                    type="quiz",
-                    correct_option_id=1# Set to False if you want to know who voted what
-            )
             
+            try:
+                poll_message = self.Senderbot.send_poll(
+                    chat_id=groupId,
+                    question=question_text,
+                        options=options,
+                        is_anonymous=False,
+                        type="quiz"
+                        #correct_option_id=1# Set to False if you want to know who voted what
+                )
+                LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} in poll {question_text}")
+                timer_id = self.Timer.start_timer(Type.QUIZ_QUESTION_TIMER_VAL,Type.TimerEvent.QUIZ_QUESTION_TIMER,self.thread)
 
-            LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} in poll {question_text}")
+                # Delete the poll message after the timer expires
+                self.QuestionTimerMap[timer_id] = [groupId,poll_message.message_id]
+            except Exception as e:
+                LOG.ERR(f"GROUP {groupId} QUIZ SEND FAILED Error: {str(e)}")
+
+            
             
             # Wait for the specified timer duration
-            await asyncio.sleep(Type.QUIZ_QUESTION_TIMER)
-            LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} TIMER_EXPIRED")
+            
 
-            # Delete the poll message after the timer expires
-            await self.bot.delete_message(chat_id=groupId, message_id=poll_message.message_id)
-            LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} DELETED")
+            #await self.bot.delete_message(chat_id=groupId, message_id=poll_message.message_id)
 
             # Optionally, you can send a message indicating that the quiz time has expired
             #await self.bot.send_message(chat_id=groupId, text="Time's up! The quiz has ended.")

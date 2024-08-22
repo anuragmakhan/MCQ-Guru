@@ -1,8 +1,11 @@
 from dataclasses import dataclass
 
+class TimerEvent:
+    QUIZ_QUESTION_TIMER = 1
+    QUIZ_TRIGGER_TIMER = 2
 
-QUIZ_QUESTION_TIMER = 1*60 #seconds, 30 min 
-QUIZ_TYPE1_TRIGGER_TIMER = 1.5*60
+QUIZ_QUESTION_TIMER_VAL = 1*6 #seconds, 30 min 
+QUIZ_TRIGGER_TIMER_VAL = 1.5*6
 
 class Action:
     MOVIE_SEARCH = 1
@@ -25,6 +28,10 @@ class msg:
         self.action: action
         self.message: message
     
+class Timermsg:
+    def __init__(self,timerId = None,event = None,message = None):
+        self.timerId: timerId
+        self.event: event
 class InterThreadMsg:
     def __init__(self, msg = None, sender = None, receiver = None):
         self.sender = sender

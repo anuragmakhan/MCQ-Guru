@@ -1,0 +1,12 @@
+FEATURES-
+0. Need to Implement Timer,
+    - Expiry Handling (Event Based)
+    - Question Delete Event
+    - Question Trigger Event
+    - Await Sleep Need to Be removed
+1. TimeBased Logging If 5000 Lines Written create a new FILE
+2. Correct answer Option in Quiz
+3. Monitor number of thread Spawened
+4. Dashboard LeaderBoard Need to Visualize
+5. Redirect User To Telegram Bot page on CLicking To Options of Quiz
+6. Do i need Backend?
