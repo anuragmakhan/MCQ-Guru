@@ -4,8 +4,8 @@ class TimerEvent:
     QUIZ_QUESTION_TIMER = 1
     QUIZ_TRIGGER_TIMER = 2
 
-QUIZ_QUESTION_TIMER_VAL = 1*6 #seconds, 30 min 
-QUIZ_TRIGGER_TIMER_VAL = 1.5*6
+QUIZ_QUESTION_TIMER_VAL = 60*60 #seconds, 30 min 
+QUIZ_TRIGGER_TIMER_VAL = 90*60
 
 class Action:
     MOVIE_SEARCH = 1
@@ -27,7 +27,7 @@ class msg:
         self.userId: userID
         self.action: action
         self.message: message
-    
+
 class Timermsg:
     def __init__(self,timerId = None,event = None,message = None):
         self.timerId: timerId

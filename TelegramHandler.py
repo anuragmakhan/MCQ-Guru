@@ -25,8 +25,8 @@ class TelegramHandler:
     def __init__(self,Que):
         #self.bot = AsyncTeleBot(config.TELEGRAM_BOT_TOKEN)
         
-        self.Senderbot = telebot.TeleBot(config.TEST_BOT_TOKEN)
-        self.bot = AsyncTeleBot(config.TEST_BOT_TOKEN)
+        self.Senderbot = telebot.TeleBot(config.TELEGRAM_BOT_TOKEN)
+        self.bot = AsyncTeleBot(config.TELEGRAM_BOT_TOKEN)
         #self.db = SQL.DbConnector()
         self.msg_token_id = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         self.commonQueue = Que
