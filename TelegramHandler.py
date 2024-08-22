@@ -147,7 +147,7 @@ class TelegramHandler:
                     question=question_text,
                         options=options,
                         is_anonymous=False,
-                        type="quiz"
+                        type="quiz",
                         correct_option_id=1# Set to False if you want to know who voted what
                 )
                 LOG.INF(f"GROUP_ID {groupId} QUIZ_ID {poll_message.poll.id} in poll {question_text}")
