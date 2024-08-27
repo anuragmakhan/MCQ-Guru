@@ -1,16 +1,13 @@
 from dataclasses import dataclass
 
+
+
+QUIZ_QUESTION_TIMER_VAL = 60 #seconds
+QUIZ_TRIGGER_TIMER_VAL = 75
+
 class TimerEvent:
     QUIZ_QUESTION_TIMER = 1
     QUIZ_TRIGGER_TIMER = 2
-
-QUIZ_QUESTION_TIMER_VAL = 60*60 #seconds, 30 min 
-QUIZ_TRIGGER_TIMER_VAL = 90*60
-
-class Action:
-    MOVIE_SEARCH = 1
-    RESPONSE_TO_USER =2
-    START_QUIZ_TIMER = 3
 
 class Modules:
     TELEGRAM = 1
@@ -22,19 +19,8 @@ class UserStates:
     START = 1
     MOVIE_SEARCH = 2
 
-class msg:
-    def __init__(self,userID = None,action = None,message = None):
-        self.userId: userID
-        self.action: action
-        self.message: message
 
 class Timermsg:
-    def __init__(self,timerId = None,event = None,message = None):
-        self.timerId: timerId
-        self.event: event
-class InterThreadMsg:
-    def __init__(self, msg = None, sender = None, receiver = None):
-        self.sender = sender
-        self.receiver = receiver
-        self.msg = msg
-        
+    def __init__(self,timerId = None,event = None):
+        self.timerId: timerId # type: ignore
+        self.event: event # type: ignore

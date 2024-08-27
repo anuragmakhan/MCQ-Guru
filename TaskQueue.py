@@ -1,9 +1,7 @@
 import queue
 
-class ThreadClass:
-    def __init__(self, thread_id, name):
-        self.thread_id = thread_id
-        self.name = name
+class TaskQueue:
+    def __init__(self):
         self.queue = queue.Queue()
 
     def get_task(self):
