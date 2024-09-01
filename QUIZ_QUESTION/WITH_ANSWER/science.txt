@@ -1,0 +1,199 @@
+add_question("SCIENCE","0","What is the chemical symbol for water?","H2O","O2","CO2","H2","H2O")
+
+add_question("SCIENCE","0","Which planet is known as the Red Planet?","Earth","Mars","Venus","Jupiter","Mars")
+
+add_question("SCIENCE","0","What is the speed of light in a vacuum?","300,000 km/s","150,000 km/s","450,000 km/s","600,000 km/s","300,000 km/s")
+
+add_question("SCIENCE","0","Who is known as the father of modern physics?","Isaac Newton","Albert Einstein","Galileo Galilei","Niels Bohr","Albert Einstein")
+
+add_question("SCIENCE","0","What is the basic unit of life?","Atom","Molecule","Cell","Organ","Cell")
+
+add_question("SCIENCE","0","What is the atomic number of Carbon?","12","6","14","8","6")
+
+add_question("SCIENCE","0","Which gas is most abundant in the Earth's atmosphere?","Oxygen","Nitrogen","Carbon Dioxide","Argon","Nitrogen")
+
+add_question("SCIENCE","0","Which vitamin is produced when the skin is exposed to sunlight?","Vitamin A","Vitamin B","Vitamin C","Vitamin D","Vitamin D")
+
+add_question("SCIENCE","0","What is the powerhouse of the cell?","Nucleus","Mitochondria","Ribosome","Lysosome","Mitochondria")
+
+add_question("SCIENCE","0","Which planet is closest to the sun?","Earth","Venus","Mercury","Mars","Mercury")
+
+add_question("SCIENCE","0","What is the most abundant element in the universe?","Oxygen","Hydrogen","Helium","Carbon","Hydrogen")
+
+add_question("SCIENCE","0","What is the chemical formula for table salt?","NaCl","KCl","NaOH","HCl","NaCl")
+
+add_question("SCIENCE","0","What is the hardest natural substance on Earth?","Gold","Diamond","Iron","Quartz","Diamond")
+
+add_question("SCIENCE","0","Which blood cells help in clotting?","Red blood cells","White blood cells","Platelets","Plasma","Platelets")
+
+add_question("SCIENCE","0","Which planet has the largest rings in the solar system?","Jupiter","Uranus","Saturn","Neptune","Saturn")
+
+add_question("SCIENCE","0","What type of bond is formed between two atoms sharing electrons?","Ionic bond","Covalent bond","Hydrogen bond","Metallic bond","Covalent bond")
+
+add_question("SCIENCE","0","Which organ is primarily responsible for filtering blood in the human body?","Liver","Heart","Kidney","Lung","Kidney")
+
+add_question("SCIENCE","0","What is the primary gas found in the air we exhale?","Oxygen","Nitrogen","Carbon Dioxide","Helium","Carbon Dioxide")
+
+add_question("SCIENCE","0","Which scientist developed the theory of relativity?","Nikola Tesla","Thomas Edison","Albert Einstein","James Maxwell","Albert Einstein")
+
+add_question("SCIENCE","0","What is the boiling point of water at sea level?","0°C","50°C","100°C","150°C","100°C")
+
+add_question("SCIENCE","0","Which part of the plant is responsible for photosynthesis?","Root","Stem","Leaf","Flower","Leaf")
+
+add_question("SCIENCE","0","What is the SI unit of force?","Joule","Newton","Pascal","Watt","Newton")
+
+add_question("SCIENCE","0","Which planet is known as the Earth's twin?","Mars","Jupiter","Venus","Mercury","Venus")
+
+add_question("SCIENCE","0","What is the process by which plants make their food?","Respiration","Transpiration","Photosynthesis","Fermentation","Photosynthesis")
+
+add_question("SCIENCE","0","What is the smallest unit of matter?","Molecule","Atom","Proton","Neutron","Atom")
+
+add_question("SCIENCE","0","Which gas is used in the process of photosynthesis?","Oxygen","Carbon Dioxide","Nitrogen","Hydrogen","Carbon Dioxide")
+
+add_question("SCIENCE","0","What is the most common type of star in the universe?","Red dwarf","Yellow dwarf","Blue giant","White dwarf","Red dwarf")
+
+add_question("SCIENCE","0","Which organelle is known as the "brain" of the cell?","Mitochondria","Nucleus","Ribosome","Golgi apparatus","Nucleus")
+
+add_question("SCIENCE","0","What is the pH level of pure water?","3","5","7","9","7")
+
+add_question("SCIENCE","0","Which type of cell division results in two identical daughter cells?","Mitosis","Meiosis","Binary fission","Budding","Mitosis")
+
+add_question("SCIENCE","0","Which element is essential for the formation of hemoglobin in the blood?","Calcium","Iron","Sodium","Potassium","Iron")
+
+add_question("SCIENCE","0","What is the primary component of natural gas?","Butane","Propane","Methane","Ethane","Methane")
+
+add_question("SCIENCE","0","What is the largest organ in the human body?","Heart","Liver","Skin","Brain","Skin")
+
+add_question("SCIENCE","0","Which planet is known as the Gas Giant?","Mercury","Mars","Jupiter","Venus","Jupiter")
+
+add_question("SCIENCE","0","What is the name of the process by which cells divide to form gametes?","Mitosis","Meiosis","Fusion","Fragmentation","Meiosis")
+
+add_question("SCIENCE","0","What is the chemical symbol for potassium?","K","P","Pt","Po","K")
+
+add_question("SCIENCE","0","Which organ is responsible for producing insulin?","Liver","Kidney","Pancreas","Gallbladder","Pancreas")
+
+add_question("SCIENCE","0","What type of energy is stored in a battery?","Kinetic energy","Potential energy","Chemical energy","Thermal energy","Chemical energy")
+
+add_question("SCIENCE","0","Which blood type is considered the universal donor?","A+","AB+","O-","B+","O-")
+
+add_question("SCIENCE","0","What is the main gas found in the Earth's ozone layer?","Oxygen","Ozone","Nitrogen","Carbon dioxide","Ozone")
+
+add_question("SCIENCE","0","What is the process of converting solid directly into gas called?","Condensation","Sublimation","Evaporation","Deposition","Sublimation")
+
+add_question("SCIENCE","0","Which organ of the human body is primarily responsible for detoxification?","Heart","Lung","Liver","Kidney","Liver")
+
+add_question("SCIENCE","0","What is the smallest bone in the human body? - A  ) Femur","Tibia","Stapes","Radius","Stapes")
+
+add_question("SCIENCE","0","Which type of electromagnetic radiation has the longest wavelength?","Gamma rays","X-rays","Ultraviolet","Radio waves","Radio waves")
+
+add_question("SCIENCE","0","What is the chemical formula for carbon dioxide?","CO","CO2","C2O","CO3","CO2")
+
+add_question("SCIENCE","0","What is the primary function of red blood cells?","Fight infections","Clot blood","Transport oxygen","Remove waste","Transport oxygen")
+
+add_question("SCIENCE","0","Which part of the eye controls the amount of light entering it?","Lens","Retina","Pupil","Cornea","Pupil")
+
+add_question("SCIENCE","0","What is the SI unit of temperature?","Celsius","Fahrenheit","Kelvin","Joule","Kelvin")
+
+add_question("SCIENCE","0","Which planet is known as the "Evening Star"?","Mars","Venus","Jupiter","Saturn","Venus")
+
+add_question("SCIENCE","0","What is the most common type of rock on the Earth's surface?","Igneous","Sedimentary","Metamorphic","Basalt","Sedimentary")
+
+add_question("SCIENCE","0","Which vitamin is essential for blood clotting?","Vitamin A","Vitamin B","Vitamin C","Vitamin K","Vitamin K")
+
+add_question("SCIENCE","0","What is the most abundant mineral in the human body?","Potassium","Iron","Calcium","Sodium","Calcium")
+
+add_question("SCIENCE","0","Which gas is commonly known as laughing gas?","Nitrogen","Nitrous oxide","Carbon monoxide","Methane","Nitrous oxide")
+
+add_question("SCIENCE","0","What is the main organ involved in the circulatory system?","Liver","Lung","Heart","Kidney","Heart")
+
+add_question("SCIENCE","0","Which organelle is responsible for protein synthesis in the cell?","Lysosome","Mitochondria","Ribosome","Golgi apparatus","Ribosome")
+
+add_question("SCIENCE","0","What is the most common metal in the Earth's crust?","Iron","Aluminum","Copper","Zinc","Aluminum")
+
+add_question("SCIENCE","0","Which part of the brain is responsible for balance and coordination?","Cerebrum","Cerebellum","Medulla","Hypothalamus","Cerebellum")
+
+add_question("SCIENCE","0","What is the SI unit of electric current?","Volt","Ampere","Watt","Ohm","Ampere")
+
+add_question("SCIENCE","0","What is the main component of the sun?","Carbon","Oxygen","Hydrogen","Helium","Hydrogen")
+
+add_question("SCIENCE","0","Which acid is found in the stomach?","Hydrochloric acid","Sulfuric acid","Nitric acid","Acetic acid","Hydrochloric acid")
+
+add_question("SCIENCE","0","What is the chemical symbol for gold?","Gd","Ag","Au","Al","Au")
+
+add_question("SCIENCE","0","What is the term for animals that are active during the night?","Diurnal","Nocturnal","Crepuscular","Arboreal","Nocturnal")
+
+add_question("SCIENCE","0","Which planet has the most moons?","Mars","Earth","Jupiter","Saturn","Jupiter")
+
+add_question("SCIENCE","0","What is the most abundant gas in Earth's atmosphere?","Oxygen","Nitrogen","Argon","Carbon dioxide","Nitrogen")
+
+add_question("SCIENCE","0","Which substance is known as the universal solvent?","Alcohol","Ether","Water","Acetone","Water")
+
+add_question("SCIENCE","0","What is the smallest planet in our solar system?","Venus","Earth","Mars","Mercury","Mercury")
+
+add_question("SCIENCE","0","What is the powerhouse of the cell?","Ribosome","Nucleus","Mitochondria","Golgi apparatus","Mitochondria")
+
+add_question("SCIENCE","0","Which element is the primary component of diamonds?","Carbon","Silicon","Oxygen","Nitrogen","Carbon")
+
+add_question("SCIENCE","0","Which organ in the human body filters waste products from the blood?","Heart","Liver","Kidney","Lungs","Kidney")
+
+add_question("SCIENCE","0","What is the study of fungi called?","Zoology","Botany","Mycology","Ecology","Mycology")
+
+add_question("SCIENCE","0","Which vitamin is essential for the absorption of calcium?","Vitamin A","Vitamin C","Vitamin D","Vitamin E","Vitamin D")
+
+add_question("SCIENCE","0","What is the SI unit of pressure?","Joule","Pascal","Watt","Newton","Pascal")
+
+add_question("SCIENCE","0","What type of cell contains a nucleus?","Prokaryotic","Eukaryotic","Bacterial","Archaeal","Eukaryotic")
+
+add_question("SCIENCE","0","What is the name of the process by which plants lose water vapor?","Respiration","Transpiration","Photosynthesis","Fermentation","Transpiration")
+
+add_question("SCIENCE","0","Which gas is responsible for the greenhouse effect?","Nitrogen","Oxygen","Carbon Dioxide","Helium","Carbon Dioxide")
+
+add_question("SCIENCE","0","What is the most abundant element in the Earth's crust?","Oxygen","Silicon","Aluminum","Iron","Oxygen")
+
+add_question("SCIENCE","0","What is the atomic number of oxygen?","6","8","10","12","8")
+
+add_question("SCIENCE","0","Which metal is liquid at room temperature?","Iron","Mercury","Copper","Lead","Mercury")
+
+add_question("SCIENCE","0","Which part of the cell is responsible for controlling cell activities?","Nucleus","Cytoplasm","Ribosome","Mitochondria","Nucleus")
+
+add_question("SCIENCE","0","Which vitamin is known as the "sunshine vitamin"?","Vitamin A","Vitamin B12","Vitamin C","Vitamin D","Vitamin D")
+
+add_question("SCIENCE","0","Which organelle is known as the "suicide bag" of the cell?","Lysosome","Mitochondria","Nucleus","Golgi apparatus","Lysosome")
+
+add_question("SCIENCE","0","What is the process of cell division in which the chromosome number is halved?","Mitosis","Meiosis","Binary Fission","Budding","Meiosis")
+
+add_question("SCIENCE","0","What is the chemical formula for methane?","CH4","C2H6","C2H4","C3H8","CH4")
+
+add_question("SCIENCE","0","Which planet is known for its Great Red Spot?","Earth","Mars","Jupiter","Saturn","Jupiter")
+
+add_question("SCIENCE","0","Which hormone regulates blood sugar levels?","Adrenaline","Thyroxine","Insulin","Glucagon","Insulin")
+
+add_question("SCIENCE","0","What is the   SI unit of energy?","Watt","Volt","Joule","Ohm","Joule")
+
+add_question("SCIENCE","0","What type of rock is formed from cooling magma?","Sedimentary","Metamorphic","Igneous","Basalt","Igneous")
+
+add_question("SCIENCE","0","Which planet is the hottest in the solar system?","Mercury","Venus","Mars","Jupiter","Venus")
+
+add_question("SCIENCE","0","What is the most common isotope of hydrogen?","Deuterium","Tritium","Protium","Helium-3","Protium")
+
+add_question("SCIENCE","0","Which type of bond is formed between a metal and a non-metal?","Covalent bond","Ionic bond","Hydrogen bond","Van der Waals bond","Ionic bond")
+
+add_question("SCIENCE","0","Which part of the plant is responsible for absorbing water and nutrients?","Stem","Leaf","Root","Flower","Root")
+
+add_question("SCIENCE","0","What is the largest artery in the human body?","Carotid artery","Femoral artery","Pulmonary artery","Aorta","Aorta")
+
+add_question("SCIENCE","0","Which gas is released during photosynthesis?","Oxygen","Carbon Dioxide","Nitrogen","Hydrogen","Oxygen")
+
+add_question("SCIENCE","0","What is the boiling point of water in Fahrenheit?","32°F","100°F","180°F","212°F","212°F")
+
+add_question("SCIENCE","0","Which part of the human brain controls voluntary movements?","Medulla oblongata","Cerebellum","Cerebrum","Hypothalamus","Cerebrum")
+
+add_question("SCIENCE","0","What is the chemical formula for table salt?","NaCl","KCl","NaOH","HCl","NaCl")
+
+add_question("SCIENCE","0","Which planet has the most extensive ring system?","Jupiter","Uranus","Neptune","Saturn","Saturn")
+
+add_question("SCIENCE","0","What is the most reactive metal?","Sodium","Potassium","Calcium","Magnesium","Potassium")
+
+add_question("SCIENCE","0","What is the SI unit of time?","Minute","Second","Hour","Day","Second")
+
+add_question("SCIENCE","0","  0. What is the process by which plants convert sunlight into food?","Photosynthesis","Respiration","Fermentation","Transpiration","Photosynthesis") 

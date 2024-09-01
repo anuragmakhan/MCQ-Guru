@@ -15,6 +15,7 @@ import queue
 import db_setup
 from telebot.types import PollAnswer
 import Timer
+import user
 
 import AppLogger as LOG
 #import SqlLite_Db_Connector as SQL
@@ -36,7 +37,25 @@ class appMain:
             self.Senderbot = telebot.TeleBot(config.TELEGRAM_BOT_TOKEN)
             self.ReceiverBot = AsyncTeleBot(config.TELEGRAM_BOT_TOKEN)
             self.TaskQueue = TaskQueue.TaskQueue()
+            self.QuestionDeleteTimerMap = dict()
             self.Timer = Timer.TimerManager()
+            self.activeUser = dict()
+    
+    def addUser(self,userId):
+        user_t = user.CurrentUser(userId)
+        self.activeUser[userId] = user_t
+        print("NEW USER CREATED")
+        return user_t
+        
+    def getUser(self,userId):
+        ret = self.activeUser.get(userId)
+        if None == ret:
+            print("NEW USER")
+            return self.addUser(userId)
+        return ret
+    
+    def dumpStats():
+        pass
 
     @classmethod
     def get_instance(cls):

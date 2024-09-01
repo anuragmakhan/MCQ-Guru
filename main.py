@@ -2,6 +2,7 @@ import threading
 import TelegramSender
 
 import TelegramReceiver
+import InterThreadQueueHandler
 
 TReceiver = TelegramReceiver.TelegramReceiver()
 
@@ -10,11 +11,10 @@ TelegramThread.start()
 
 TSender = TelegramSender.TelegramSender()
 TSender.triggerQuiz()
-QueueHandler = threading.Thread(target=TSender.QueueHandler)
-QueueHandler.start()
+
+InterThreadQueueHandler.InterThreadQueueHandler()
 
 
 print("APPLICATION STARTED")
 
 TelegramThread.join()
-QueueHandler.join()
