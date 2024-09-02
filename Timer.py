@@ -31,7 +31,6 @@ class TimerManager:
         
     def On_timer_expiry(self, timer_id, event):
         LOG.INF(f"TIMER_EXPIRED: TIMER_ID : {timer_id} EVENT {event}")
-        print(f"Timer {timer_id} has expired!")
         msg = Type.Timermsg()
         msg.timerId = timer_id
         msg.event = event

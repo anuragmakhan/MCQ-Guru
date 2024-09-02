@@ -14,6 +14,7 @@ class Question:
         self.correct_option = self.question[8]
         self.chatId = chatId
         self.pollId = None
+        self.message_id = None
         self.correct_option_id = self.get_correct_option_id()
         self.IsDeleteRequired = IsDeleteRequired
         self.bot = self.app.Senderbot
@@ -22,7 +23,7 @@ class Question:
         
     def deleteQuestionFromChat(self):
         if self.IsDeleteRequired == True:
-            self.bot.delete_message(chat_id=self.chatId, message_id=self.pollId)
+            self.bot.delete_message(chat_id=self.chatId, message_id=self.message_id)
             LOG.INF(f"GROUP_ID {self.chatId} QUIZ_ID {self.pollId} DELETED")
     
     def get_correct_option_id(self):
@@ -41,7 +42,8 @@ class Question:
                 )
             LOG.INF(f"CHAT_ID {self.chatId} QUIZ_ID {poll_message.poll.id} in poll {self.question_text} CORRECT OPTION ID : {self.correct_option_id}")
             #self.pollId = poll_message.poll.id
-            self.pollId = poll_message.message_id
+            self.message_id = poll_message.message_id
+            self.pollId = poll_message.poll.id
             self.IsDeleteRequired = True
         except Exception as e:
             LOG.ERR(f"GROUP {self.chatId} QUIZ SEND FAILED Error: {str(e)}")

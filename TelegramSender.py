@@ -9,6 +9,11 @@ class TelegramSender():
         self.app = appMain.appMain.get_instance()
         self.bot = self.app.Senderbot
     
+    
+    
+    #REQUIREMENT Trigger of GroupQuiz should be event based
+    #After this change this file can be removed
+    
     def triggerQuiz(self):
         self.app.Timer.start_timer(Type.QUIZ_TRIGGER_TIMER_VAL,Type.TimerEvent.QUIZ_TRIGGER_TIMER)
         groups = db_setup.get_all_groups()
@@ -20,9 +25,6 @@ class TelegramSender():
                 print(group)
                 question = QuestionClass.Question(group_id,IsDeleteRequired=True)
                 if question.IsDeleteRequired == True:
-                    print("success")
                     timer_id = self.app.Timer.start_timer(Type.QUIZ_QUESTION_TIMER_VAL,Type.TimerEvent.QUIZ_QUESTION_TIMER)
                     self.app.QuestionDeleteTimerMap[timer_id] = question
-                else:
-                    print("FAILED")
      

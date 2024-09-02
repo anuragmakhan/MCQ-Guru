@@ -94,7 +94,6 @@ def get_random_question():
     c.execute("SELECT * FROM questions ORDER BY RANDOM() LIMIT 1")
     question = c.fetchone()
     if question == None:
-        print("FATAL: DB EMPTY       !!!!!!!!!!")
         conn.close()
         return "NEED_ATTENTION"
     conn.close()
@@ -183,8 +182,6 @@ def dump_db(db_name):
         # Dump database data to a JSON file
         with open('db_dump.json', 'w') as f:
             json.dump(db_data, f, indent=4)
-        
-        print("Database dumped to db_dump.json")
     
     except sqlite3.Error as e:
         print(f"An error occurred: {e.args[0]}")

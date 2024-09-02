@@ -41,6 +41,8 @@ class TelegramReceiver:
             user_id = poll_answer.user.id
             poll_id = poll_answer.poll_id
             selected_option = poll_answer.option_ids[0]
+            QuizID = self.app.getQuizIdByPollId(poll_id)
+            await self.app.getQuiz(QuizID).handle_poll_answer(poll_answer)
             LOG.INF(f"User {user_id} selected option {selected_option} in poll {poll_id}")
             self.app.getUser(user_id).heartbeat()
         

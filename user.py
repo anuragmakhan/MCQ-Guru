@@ -22,11 +22,16 @@ class CurrentUser:
         self.current_quiz_id = 0
 
     def trigger_quiz(self):
-        quiz = QuestionClass.Quiz()
+        quiz = QuizClass.Quiz(self.user_id)
         self.current_quiz_id = quiz.QuizId #QuizId Logic Need to corrected
+        self.app.addQuiz(quiz.QuizId,quiz)
         QuizThread = threading.Thread(target=quiz.start_quiz)
         QuizThread.start()
         #user.CurrentUser(message.chat.id).start_quiz()
+        
+    def finish_quiz(self):
+        self.app.getQuiz(self.current_quiz_id).finish_quiz()
+        #quiz = QuizClass.Quiz(self.user_id)
 
     def set_state(self, new_state):
         self.state = new_state

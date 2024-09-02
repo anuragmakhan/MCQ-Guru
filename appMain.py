@@ -40,17 +40,29 @@ class appMain:
             self.QuestionDeleteTimerMap = dict()
             self.Timer = Timer.TimerManager()
             self.activeUser = dict()
+            self.CurrentLiveQuiz = dict()
+            self.pollIdQuizIDMap = dict()
     
+    def getQuizIdByPollId(self,PollId):
+        return  self.pollIdQuizIDMap.get(PollId)
+    
+    def addpollIdQuizIDMap(self,PollId,QuizId):
+        self.pollIdQuizIDMap[PollId] = QuizId     
+        
+    def addQuiz(self,QuizId,QuizInstance):
+        self.CurrentLiveQuiz[QuizId] = QuizInstance
+        
+    def getQuiz(self,QuizId):
+        return self.CurrentLiveQuiz.get(QuizId)
+        
     def addUser(self,userId):
         user_t = user.CurrentUser(userId)
         self.activeUser[userId] = user_t
-        print("NEW USER CREATED")
         return user_t
         
     def getUser(self,userId):
         ret = self.activeUser.get(userId)
         if None == ret:
-            print("NEW USER")
             return self.addUser(userId)
         return ret
     
