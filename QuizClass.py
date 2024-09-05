@@ -5,7 +5,7 @@ import AppLogger as LOG
 import appMain
 from collections import defaultdict
 from time import time, sleep
-
+import db_setup
 
 class Quiz:
     def __init__(self,user_id):
@@ -14,7 +14,8 @@ class Quiz:
         self.user_id = user_id
 
         self.t = 10
-        self.current_question_index = 0
+        self.ToatlQuestionInQuiz = 10
+        self.posted_question_count = 0
         self.responses = defaultdict(list)  # Store responses keyed by user_id
         self.start_time = time()
         self.poll_ids = dict()  # Store poll IDs to track responses
@@ -22,7 +23,7 @@ class Quiz:
         self.current_quiz_id = 7
     
     def start_quiz(self):
-        if self.current_quiz_id != 0:
+        if self.current_quiz_id != 0 and self.posted_question_count < self.ToatlQuestionInQuiz:
             question = QuestionClass.Question(self.user_id,IsDeleteRequired=True)
             self.app.addpollIdQuizIDMap(question.pollId,self.QuizId)
             self.poll_ids[question.pollId] = question
@@ -30,9 +31,11 @@ class Quiz:
                 timer_id = self.app.Timer.start_timer(12,Type.TimerEvent.QUIZ_QUESTION_TIMER)
                 self.app.QuestionDeleteTimerMap[timer_id] = question
             sleep(10)
+            self.posted_question_count+=1
             self.start_quiz()
         else:
             LOG.INF(f"QUIZ ENDED USER_ID {self.user_id}")
+            self.finish_quiz()
             #self.state = UserState.IDLE  # Additional state to track the user's activity
 
     async def handle_poll_answer(self, poll_answer):
@@ -59,6 +62,12 @@ class Quiz:
         """
         wronganswer = 0
         correctanswer = 0
+        
+        msg = "<b>📊 Quiz Report Card</b>\n\n"
+        msg += "<b>Name       | Score</b>\n"
+        msg += "<b>-------------------------------------------</b>\n"
+
+
         for user_id, answers in self.responses.items():
             for x in answers:
                 if x == 0:
@@ -67,14 +76,18 @@ class Quiz:
                     correctanswer = correctanswer + 1
                     
             self.results[user_id] = {
-                'userId': user_id,
+                'userName': db_setup.get_username_from_user_id(user_id),
                 'score': correctanswer,
                 'Wrong': wronganswer,
                 'total': len(self.poll_ids),
-                'percentage': (correctanswer / len(self.poll_ids)) * 100
+                'Total SCORE': (correctanswer * 4 -  wronganswer*1)
             }
-            
-            print(self.results[user_id])
+            # Add row for each person
+            msg += f"{db_setup.get_username_from_user_id(user_id)}|{'      ' + str(correctanswer * 4 - wronganswer * 1)}\n"
+
+
+        self.app.Senderbot.send_message(self.user_id, msg, parse_mode="HTML")
+        #print(userName,self.results[user_id])
 
     def finish_quiz(self):
         self.is_attending_quiz = False

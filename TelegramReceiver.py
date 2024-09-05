@@ -20,15 +20,26 @@ class TelegramReceiver:
         # Handler for /startQuiz command
         @self.bot.message_handler(commands=['startQuiz'])
         async def send_welcome(message):
-            await self.bot.send_message(message.chat.id, "Quiz Will start soon\n1. Each Question Will Have 15 Seconds\n2. Whenever want to Quit Quiz Press /QuitQuiz")
+            await self.bot.send_message(message.chat.id, "Quiz Will start soon\n1. There will be total 10 Question\n2. Each Question Will Have 15 Seconds\n3. Correct answer +4 wrong answer -1\n4. Whenever want to Quit Quiz Press /QuitQuiz\n5. At the End of Quiz you will get result.")
             await asyncio.sleep(3)
-            self.app.getUser(message.from_user.id).trigger_quiz()
+            
+            chat_type = message.chat.type
+            if chat_type == 'group' or chat_type == 'supergroup':
+                userId = message.chat.id
+            else:
+                userId = message.from_user.id
+            self.app.getUser(userId).trigger_quiz()
             
         # Handler for /QuitQuiz command
         @self.bot.message_handler(commands=['QuitQuiz'])
         async def send_welcome(message):
             await self.bot.send_message(message.chat.id, "Thanks Quiz Ended, Will UPLOAD RESULT HERE")
-            self.app.getUser(message.from_user.id).finish_quiz()
+            chat_type = message.chat.type
+            if chat_type == 'group' or chat_type == 'supergroup':
+                userId = message.chat.id
+            else:
+                userId = message.from_user.id
+            self.app.getUser(userId).finish_quiz()
             #user.CurrentUser(message.chat.id).start_quiz()
         
         @self.bot.message_handler(func=lambda message: True)
@@ -42,9 +53,10 @@ class TelegramReceiver:
             poll_id = poll_answer.poll_id
             selected_option = poll_answer.option_ids[0]
             QuizID = self.app.getQuizIdByPollId(poll_id)
-            await self.app.getQuiz(QuizID).handle_poll_answer(poll_answer)
-            LOG.INF(f"User {user_id} selected option {selected_option} in poll {poll_id}")
-            self.app.getUser(user_id).heartbeat()
+            if QuizID != None:
+                await self.app.getQuiz(QuizID).handle_poll_answer(poll_answer)
+                LOG.INF(f"User {user_id} selected option {selected_option} in poll {poll_id}")
+                self.app.getUser(user_id).heartbeat()
         
     def run(self):
         asyncio.run(self.bot.polling())

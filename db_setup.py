@@ -39,6 +39,15 @@ def create_tables():
     conn.commit()
     conn.close()
 
+
+def get_username_from_user_id(user_id):
+    conn = sqlite3.connect('questions.db')  # Replace with your DB path
+    c = conn.cursor()
+    c.execute("SELECT first_name FROM users WHERE user_id=?", (user_id,))
+    result = c.fetchone()
+    conn.close()
+    return result[0] if result else None
+
 def add_user(user_id, username, first_name, last_name):
     conn = sqlite3.connect('questions.db')
     c = conn.cursor()
