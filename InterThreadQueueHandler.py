@@ -2,6 +2,7 @@ import AppLogger as LOG
 import appMain
 import Type
 import threading
+import TelegramSender
 
 # Define the FSM class
 class InterThreadQueueHandler:
@@ -19,7 +20,7 @@ class InterThreadQueueHandler:
     def TimerEventHandler(self,msg):
         LOG.INF(f"IN_TIMER_EVENT_HANDLER EVENT: {msg.event} TIMER_ID: {msg.timerId}")
         if(msg.event == Type.TimerEvent.QUIZ_TRIGGER_TIMER):
-            self.triggerQuiz()
+            TelegramSender.TelegramSender().triggerQuiz()
         elif (msg.event == Type.TimerEvent.QUIZ_QUESTION_TIMER):
             self.deleteQuestion(msg.timerId)
         else:
