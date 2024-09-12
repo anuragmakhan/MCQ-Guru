@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "ANURAG DEPLOYING APP"
 echo "SETTING VIRTUAL ENVIRONMENT"
 python3 -m venv AppVenv
