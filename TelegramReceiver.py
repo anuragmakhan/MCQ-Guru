@@ -18,6 +18,25 @@ class TelegramReceiver:
             self.check_and_register_user(message)
             
         # Handler for /startQuiz command
+        @self.bot.message_handler(commands=['AdminHandler'])
+        async def adminMsg(message):
+            if "ADD_QUESTION" in message.text:
+                #db_setup.add_question("HISTORY","0","Which freedom fighter was known as the 'Lion of Punjab'?","Lala Lajpat Rai","Bhagat Singh","Udham Singh","Bal Gangadhar Tilak","Lala Lajpat Rai")
+                QuestionList = message.text.split("\n")
+                rplyString = "Not Added Question\n"
+                count = 0
+                for x in QuestionList:
+                    print(x)
+                    try:
+                        db_setup.add_question(x)
+                        count += 1
+                        print("Added SUUU")
+                    except Exception as e:
+                        rplyString = rplyString + x + "\n" + "Error: " + str(e) + "\n"
+                        
+                await self.app.ReceiverBot.send_message(message.chat.id, "Question Added Successfully = "+ str(count) + "\n\n" + rplyString)
+
+        # Handler for /startQuiz command
         @self.bot.message_handler(commands=['startQuiz'])
         async def send_welcome(message):
             await self.bot.send_message(message.chat.id, "Quiz Will start soon\n1. There will be total 10 Question\n2. Each Question Will Have 15 Seconds\n3. Correct answer +4 wrong answer -1\n4. Whenever want to Quit Quiz Press /QuitQuiz\n5. At the End of Quiz you will get result.")

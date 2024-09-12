@@ -93,6 +93,7 @@ def add_question(sub, level, question, option_a, option_b, option_c, option_d, c
     c = conn.cursor()
     c.execute("INSERT INTO questions (subject, level, question, option_a, option_b, option_c, option_d, correct_option) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
               (sub, level, question, option_a, option_b, option_c, option_d, correct_option))
+    print("Question Added")
     conn.commit()
     conn.close()
 
