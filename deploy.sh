@@ -5,6 +5,8 @@ echo "SETTING VIRTUAL ENVIRONMENT"
 python3 -m venv AppVenv
 source AppVenv/bin/activate
 
+pip install requirements.txt
+
 echo "CHECKING IF APP RUNNING"
 ps -ef | grep main
 
@@ -13,10 +15,6 @@ pkill -f main
 
 echo "CHECKING IF APP RUNNING"
 ps -ef | grep main
-
-dir_name=$(date +"%Y-%m-%d-%H-%M-%S")
-mkdir "$dir_name"
-cp /path/to/file "$dir_name"/
 
 mkdir $(date +"%Y%m%d_%H%M%S")
 echo "COLLECTING LOGS"
