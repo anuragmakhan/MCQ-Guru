@@ -18,8 +18,11 @@ cp /path/to/file "$dir_name"/
 
 mkdir $(date +"%Y%m%d_%H%M%S")
 echo "COLLECTING LOGS"
-cp -r LOGS/ "$dir_name"/
+cp -r LOG/ "$dir_name"/
 cp -r CONSOLE_OUTPUT.txt "$dir_name"/
+
+echo "PULLING LATEST CODE"
+git pull
 
 echo "STARTING NEW APP"
 nohup python main.py > CONSOLE_OUTPUT.txt &
