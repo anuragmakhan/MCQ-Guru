@@ -16,7 +16,8 @@ pkill -f main
 echo "CHECKING IF APP RUNNING"
 ps -ef | grep main
 
-mkdir $(date +"%Y%m%d_%H%M%S")
+dir_name=$(date +"%Y%m%d_%H%M%S")
+mkdir $dir_name
 echo "COLLECTING LOGS"
 cp -r LOG/ "$dir_name"/
 cp -r CONSOLE_OUTPUT.txt "$dir_name"/
