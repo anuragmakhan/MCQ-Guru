@@ -14,8 +14,11 @@ class InterThreadQueueHandler:
     def run(self):
         while True:
             msg = self.app.TaskQueue.get_task()
-            self.TimerEventHandler(msg)
-            LOG.INF(f"QUEUE_HANDLER_RECEIVED_A_MESSAGE: TIMER_ID : {msg.timerId} EVENT {msg.event}")
+            try:
+                LOG.INF(f"QUEUE_HANDLER_RECEIVED_A_MESSAGE: TIMER_ID : {msg.timerId} EVENT {msg.event}")
+                self.TimerEventHandler(msg)
+            except Exception as e:
+                LOG.INF(f"FAILED HANDLING TIMER EVENT: TIMER_ID : {e}")
     
     def TimerEventHandler(self,msg):
         LOG.INF(f"IN_TIMER_EVENT_HANDLER EVENT: {msg.event} TIMER_ID: {msg.timerId}")

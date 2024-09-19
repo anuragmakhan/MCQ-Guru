@@ -19,7 +19,7 @@ ps -ef | grep main
 dir_name=$(date +"%Y%m%d_%H%M%S")
 mkdir $dir_name
 echo "COLLECTING LOGS"
-cp -r LOG/ "$dir_name"/
+mv  LOG/* "$dir_name"/
 cp -r CONSOLE_OUTPUT.txt "$dir_name"/
 
 echo "PULLING LATEST CODE"
