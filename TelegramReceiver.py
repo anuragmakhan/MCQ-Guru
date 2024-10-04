@@ -17,7 +17,12 @@ class TelegramReceiver:
             # Optionally, check and register the user when they send the /start command
             self.check_and_register_user(message)
             
-        # Handler for /startQuiz command
+        @self.bot.message_handler(commands=['BackUpDb'])
+        async def adminMsg(message):
+            db_setup.dump_db_t()
+            LOG.INF("DB_BACKUP_DONE")
+            
+        #Handler for /startQuiz command
         @self.bot.message_handler(commands=['AdminHandler'])
         async def adminMsg(message):
             if "ADD_QUESTION" in message.text:

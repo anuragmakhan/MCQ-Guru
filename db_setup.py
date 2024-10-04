@@ -260,6 +260,10 @@ def deleteQuestionsTable():
     # Close the connection
     conn.close()
 
+def dump_db_t():
+    dump_db_to_text('questions.db', 'db_dump.txt')
+    dump_db('questions.db')
+
 if __name__ == "__main__":
     #deleteQuestionsTable()
     create_tables()
