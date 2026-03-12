@@ -8,7 +8,7 @@ from src.bot import TelegramSender
 class InterThreadQueueHandler:
     def __init__(self):
         self.app = appMain.appMain.get_instance()
-        QueueHandler = threading.Thread(target=self.run)
+        QueueHandler = threading.Thread(target=self.run, daemon=True)
         QueueHandler.start()
 
     def run(self):

@@ -12,8 +12,7 @@ class TelegramReceiver:
         self.app = appMain.appMain.get_instance()
         self.bot = self.app.ReceiverBot
         
-        # Set commands
-        asyncio.create_task(self.set_commands())
+        # Commands will be set when the bot starts in run()
 
         # Handler for /start command
         @self.bot.message_handler(commands=['start'])
@@ -89,7 +88,9 @@ class TelegramReceiver:
         async def quit_quiz(message):
             await self.bot.send_message(message.chat.id, "Quiz Ended.")
             userId = message.chat.id if message.chat.type in ['group', 'supergroup'] else message.from_user.id
-            self.app.getUser(userId).finish_quiz()
+            msg = self.app.getUser(userId).finish_quiz()
+            if msg:
+                await self.bot.send_message(message.chat.id, msg, parse_mode='HTML')
         
         @self.bot.message_handler(func=lambda message: True)
         async def echo_message(message):
@@ -116,8 +117,12 @@ class TelegramReceiver:
         await self.bot.set_my_commands(commands)
         LOG.INF("Bot commands set successfully")
 
+    async def start_bot(self):
+        await self.set_commands()
+        await self.bot.polling()
+
     def run(self):
-        asyncio.run(self.bot.polling())
+        asyncio.run(self.start_bot())
         LOG.ERR("TELEGRAM_LISTENER_THREAD_EXITED !!!!FATAL")
     
     def check_and_register_user(self,message):

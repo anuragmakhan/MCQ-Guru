@@ -1,6 +1,8 @@
 import sqlite3
 import json
 import threading
+import os
+import ast
 from src.utils import AppLogger as LOG
 
 _db_lock = threading.Lock()
@@ -150,6 +152,36 @@ def dump_db_t():
     dump_db_to_text('questions.db', 'db_dump.txt')
     dump_db('questions.db')
 
+def init_questions_from_dir():
+    base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data', 'quiz', 'with_answers')
+    if not os.path.exists(base_dir):
+        LOG.ERR(f"Directory not found: {base_dir}")
+        return
+
+    count = 0
+    for filename in os.listdir(base_dir):
+        if filename.endswith(".txt"):
+            filepath = os.path.join(base_dir, filename)
+            with open(filepath, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith("add_question("):
+                        try:
+                            # Safely evaluate the tuple of arguments inside add_question(...)
+                            # e.g., line is `add_question("SUB", "LVL", ...)`
+                            # We extract the part inside the parentheses
+                            args_str = line[len("add_question("):-1]
+                            # Using ast.literal_eval is safe for literal structures like tuples/strings
+                            args = ast.literal_eval(f"({args_str})")
+                            add_question(*args)
+                            count += 1
+                        except Exception as e:
+                            LOG.ERR(f"Error parsing line in {filename}: {line} -> {e}")
+    
+    LOG.INF(f"Initialized {count} questions from {base_dir}")
+
+
 if __name__ == "__main__":
     create_tables()
+    init_questions_from_dir()
     dump_db_to_text('questions.db', 'db_dump.txt')

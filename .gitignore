@@ -6,5 +6,4 @@ db_dump.txt
 .vscode/
 .pytest_cache
 test_output.txt
-test.md
-task.md
+.env
