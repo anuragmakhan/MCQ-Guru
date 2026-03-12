@@ -1,8 +1,8 @@
-import AppLogger as LOG
-import appMain
-import Type
+from src.utils import AppLogger as LOG
+from src import appMain
+from src.utils import Type
 import threading
-import TelegramSender
+from src.bot import TelegramSender
 
 # Define the FSM class
 class InterThreadQueueHandler:

@@ -1,4 +1,10 @@
-app.log
+*.log
 \__pycache__
-config.py
 questions.db
+db_dump.json
+db_dump.txt
+.vscode/
+.pytest_cache
+test_output.txt
+test.md
+task.md

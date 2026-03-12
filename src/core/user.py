@@ -1,10 +1,11 @@
-import QuestionClass
-import Type
+from src.core import QuestionClass
+from src.utils import Type
 import time
-import appMain
-import AppLogger as LOG
+import asyncio
+from src import appMain
+from src.utils import AppLogger as LOG
 import threading
-import QuizClass
+from src.core import QuizClass
 
 class UserState:
     IDLE = "IDLE"
@@ -21,12 +22,15 @@ class CurrentUser:
         self.activetimer = None #TimerId
         self.current_quiz_id = 0
 
-    def trigger_quiz(self):
-        quiz = QuizClass.Quiz(self.user_id)
+    def trigger_quiz(self, subject = None):
+        quiz = QuizClass.Quiz(self.user_id, subject = subject)
         self.current_quiz_id = quiz.QuizId #QuizId Logic Need to corrected
         self.app.addQuiz(quiz.QuizId,quiz)
-        QuizThread = threading.Thread(target=quiz.start_quiz)
-        QuizThread.start()
+        try:
+            loop = asyncio.get_running_loop()
+            loop.create_task(quiz.start_quiz())
+        except RuntimeError:
+            threading.Thread(target=lambda: asyncio.run(quiz.start_quiz()), daemon=True).start()
         #user.CurrentUser(message.chat.id).start_quiz()
         
     def finish_quiz(self):

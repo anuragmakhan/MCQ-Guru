@@ -10,17 +10,17 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from threading import Thread
 from telebot.async_telebot import AsyncTeleBot
 import telebot
-import Type
+from src.utils import Type
 import queue
-import db_setup
+from src.db import db_setup
 from telebot.types import PollAnswer
-import Timer
-import user
+from src.core import Timer
+from src.core import user
 
-import AppLogger as LOG
+from src.utils import AppLogger as LOG
 #import SqlLite_Db_Connector as SQL
 #import client
-import TaskQueue
+from src.core import TaskQueue
 
 
 class appMain:
