@@ -1,8 +1,8 @@
 import threading
-import TelegramSender
+from src.bot import TelegramSender
 
-import TelegramReceiver
-import InterThreadQueueHandler
+from src.bot import TelegramReceiver
+from src.core import InterThreadQueueHandler
 
 TReceiver = TelegramReceiver.TelegramReceiver()
 
@@ -15,6 +15,8 @@ TSender.triggerQuiz()
 InterThreadQueueHandler.InterThreadQueueHandler()
 
 
-print("APPLICATION STARTED")
+from src.utils import AppLogger as LOG
+
+LOG.INF("APPLICATION STARTED")
 
 TelegramThread.join()

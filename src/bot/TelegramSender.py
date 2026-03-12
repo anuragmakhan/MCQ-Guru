@@ -1,8 +1,8 @@
-import QuestionClass
-import Type
-import AppLogger as LOG
-import db_setup
-import appMain
+from src.core import QuestionClass
+from src.utils import Type
+from src.utils import AppLogger as LOG
+from src.db import db_setup
+from src import appMain
 
 class TelegramSender():
     def __init__(self):
@@ -22,7 +22,7 @@ class TelegramSender():
             for group in groups:
                 group_id, group_name, group_type = group
                 response += f"ID: {group_id}, Name: {group_name}, Type: {group_type}\n"
-                print(group)
+                LOG.INF(f"Group: {group}")
                 question = QuestionClass.Question(group_id,IsDeleteRequired=True)
                 if question.IsDeleteRequired == True:
                     timer_id = self.app.Timer.start_timer(Type.QUIZ_QUESTION_TIMER_VAL,Type.TimerEvent.QUIZ_QUESTION_TIMER)

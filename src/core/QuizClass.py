@@ -1,17 +1,19 @@
 import uuid
-import QuestionClass
-import Type
-import AppLogger as LOG
-import appMain
+from src.core import QuestionClass
+from src.utils import Type
+from src.utils import AppLogger as LOG
+from src import appMain
 from collections import defaultdict
-from time import time, sleep
-import db_setup
+from time import time
+import asyncio
+from src.db import db_setup
 
 class Quiz:
-    def __init__(self,user_id):
+    def __init__(self,user_id, subject = None):
         self.QuizId = int(uuid.uuid4().int & (1<<64)-1)  # Convert to a 64-bit integer
         self.app = appMain.appMain.get_instance()
         self.user_id = user_id
+        self.subject = subject
 
         self.t = 10
         self.ToatlQuestionInQuiz = 10
@@ -22,17 +24,17 @@ class Quiz:
         self.results = {}
         self.current_quiz_id = 7
     
-    def start_quiz(self):
+    async def start_quiz(self):
         if self.current_quiz_id != 0 and self.posted_question_count < self.ToatlQuestionInQuiz:
-            question = QuestionClass.Question(self.user_id,IsDeleteRequired=True)
+            question = QuestionClass.Question(self.user_id,IsDeleteRequired=True, subject=self.subject)
             self.app.addpollIdQuizIDMap(question.pollId,self.QuizId)
             self.poll_ids[question.pollId] = question
             if question.IsDeleteRequired == True:
                 timer_id = self.app.Timer.start_timer(12,Type.TimerEvent.QUIZ_QUESTION_TIMER)
                 self.app.QuestionDeleteTimerMap[timer_id] = question
-            sleep(10)
+            await asyncio.sleep(10)
             self.posted_question_count+=1
-            self.start_quiz()
+            await self.start_quiz()
         else:
             LOG.INF(f"QUIZ ENDED USER_ID {self.user_id}")
             self.finish_quiz()
@@ -86,8 +88,7 @@ class Quiz:
             msg += f"{db_setup.get_username_from_user_id(user_id)}|{'      ' + str(correctanswer * 4 - wronganswer * 1)}\n"
 
 
-        self.app.Senderbot.send_message(self.user_id, msg, parse_mode="HTML")
-        #print(userName,self.results[user_id])
+        #LOG.INF(f"{db_setup.get_username_from_user_id(user_id)} {self.results[user_id]}")
 
     def finish_quiz(self):
         self.is_attending_quiz = False

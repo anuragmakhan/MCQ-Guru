@@ -1,14 +1,17 @@
 
-import db_setup
-import AppLogger as LOG
-import Type
-import Timer
-import appMain
+from src.db import db_setup
+from src.utils import AppLogger as LOG
+from src.utils import Type
+from src.core import Timer
+from src import appMain
 
 class Question:
-    def __init__(self,chatId,IsDeleteRequired = False):
+    def __init__(self,chatId,IsDeleteRequired = False, subject = None):
         self.app = appMain.appMain.get_instance()
-        self.question = db_setup.get_random_question()
+        if subject:
+            self.question = db_setup.get_random_question_by_subject(subject)
+        else:
+            self.question = db_setup.get_random_question()
         self.question_text = self.question[3]
         self.options = [self.question[4], self.question[5], self.question[6], self.question[7]]
         self.correct_option = self.question[8]
