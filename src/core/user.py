@@ -34,7 +34,7 @@ class CurrentUser:
         #user.CurrentUser(message.chat.id).start_quiz()
         
     def finish_quiz(self):
-        self.app.getQuiz(self.current_quiz_id).finish_quiz()
+        return self.app.getQuiz(self.current_quiz_id).finish_quiz()
         #quiz = QuizClass.Quiz(self.user_id)
 
     def set_state(self, new_state):

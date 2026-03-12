@@ -37,7 +37,9 @@ class Quiz:
             await self.start_quiz()
         else:
             LOG.INF(f"QUIZ ENDED USER_ID {self.user_id}")
-            self.finish_quiz()
+            msg = self.finish_quiz()
+            if msg:
+                asyncio.create_task(self.app.ReceiverBot.send_message(self.user_id, msg, parse_mode='HTML'))
             #self.state = UserState.IDLE  # Additional state to track the user's activity
 
     async def handle_poll_answer(self, poll_answer):
@@ -61,38 +63,40 @@ class Quiz:
     def calculate_results(self):
         """
         Calculate results for each user based on their responses.
+        Returns the formatted score message.
         """
-        wronganswer = 0
-        correctanswer = 0
-        
         msg = "<b>📊 Quiz Report Card</b>\n\n"
         msg += "<b>Name       | Score</b>\n"
         msg += "<b>-------------------------------------------</b>\n"
 
-
         for user_id, answers in self.responses.items():
+            wronganswer = 0
+            correctanswer = 0
             for x in answers:
                 if x == 0:
-                    wronganswer = wronganswer + 1
+                    wronganswer += 1
                 elif x == 1:
-                    correctanswer = correctanswer + 1
+                    correctanswer += 1
                     
             self.results[user_id] = {
                 'userName': db_setup.get_username_from_user_id(user_id),
                 'score': correctanswer,
                 'Wrong': wronganswer,
                 'total': len(self.poll_ids),
-                'Total SCORE': (correctanswer * 4 -  wronganswer*1)
+                'Total SCORE': (correctanswer * 4 - wronganswer * 1)
             }
             # Add row for each person
-            msg += f"{db_setup.get_username_from_user_id(user_id)}|{'      ' + str(correctanswer * 4 - wronganswer * 1)}\n"
+            msg += f"{self.results[user_id]['userName']}|{'      ' + str(self.results[user_id]['Total SCORE'])}\n"
 
+        if not self.responses:
+             msg += "No questions were answered.\n"
 
-        #LOG.INF(f"{db_setup.get_username_from_user_id(user_id)} {self.results[user_id]}")
+        return msg
 
     def finish_quiz(self):
         self.is_attending_quiz = False
-        self.calculate_results()
+        msg = self.calculate_results()
         LOG.INF(f"User {self.user_id} finished quiz {self.current_quiz_id}")
         self.current_quiz_id = 0
         self.state = "Idle"
+        return msg

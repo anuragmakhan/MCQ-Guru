@@ -44,7 +44,7 @@ A feature-rich Telegram Quiz Bot built with Python and `pyTelegramBotAPI`. Desig
 
 4. **Initialize Database**:
    ```bash
-   python src/db/db_setup.py
+   python -m src.db.db_setup
    ```
 
 5. **Run the Bot**:
@@ -63,6 +63,18 @@ Run tests using Pytest:
 ```bash
 PYTHONPATH=. pytest
 ```
+
+
+<br>
+<p align="center">
+  <!-- TODO: Replace with the actual URL or relative path to your main bot screenshot -->
+  <img src="assets/5.png" alt="MCQ Guru Bot Demo" width="140">
+  <img src="assets/4.png" alt="MCQ Guru Bot Demo" width="140">
+  <img src="assets/3.png" alt="MCQ Guru Bot Demo" width="140">
+  <img src="assets/2.png" alt="MCQ Guru Bot Demo" width="140">
+  <img src="assets/1.png" alt="MCQ Guru Bot Demo" width="140">
+</p>
+<br>
 
 ## 📜 License
 
